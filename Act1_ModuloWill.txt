@@ -1,0 +1,46 @@
+CREATE DATABASE IT_ACT;
+USE IT_ACT;
+
+CREATE TABLE Cargos(
+	id_cargo INT AUTO_INCREMENT PRIMARY KEY,
+	nombre_cargo VARCHAR(255)
+);
+
+CREATE TABLE Departamentos(
+	id_Departamento INT AUTO_INCREMENT PRIMARY KEY,
+	nombre_departamento VARCHAR (255)
+);
+
+CREATE TABLE Empleados(
+	id_empleado INT AUTO_INCREMENT PRIMARY KEY,
+	nombre_empleado VARCHAR(255),
+	apellido_empleado VARCHAR(255),
+	id_cargo INT,
+	CONSTRAINT fk_Empleados_Cargos 
+	FOREIGN KEY (id_cargo) 
+	REFERENCES Cargos(id_cargo),
+	salario_empleado DECIMAL(10,2),
+	fecha_inicio_empleado DATE,
+	id_Departamento INT,
+	CONSTRAINT fk_Empleados_Departamentos
+	FOREIGN KEY (id_Departamento) 
+	REFERENCES Departamentos(id_Departamento)
+);
+
+CREATE TABLE Proyectos (
+	id_proyecto INT AUTO_INCREMENT PRIMARY KEY,
+	nombre_proyecto VARCHAR(255)
+);
+
+CREATE TABLE Desarrollo(
+	id_desarrollo INT AUTO_INCREMENT PRIMARY KEY,
+	id_empleado INT,
+	CONSTRAINT fk_Empleados_Desarrollo
+	FOREIGN KEY (id_empleado) 
+	REFERENCES Empleados(id_empleado),
+	id_proyecto INT,
+	CONSTRAINT fk_Proyectos_Desarrollo
+	FOREIGN KEY (id_proyecto) 
+	REFERENCES Proyectos(id_proyecto),
+	fecha_inicio_desarrollo DATE
+);
